@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD Sql Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="board" type="board.boardVO" />
+	<!-- 리절트 맵정의 -->
+	<resultMap class="board" id="boardRes">
+		<result property="no" column="no" />
+		<result property="subject" column="subject" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="content" column="content" />
+		<result property="file_orgname" column="file_orgName" />
+		<result property="file_savname" column="file_savName" />
+		<result property="readhit" column="readhit" />
+		<result property="regdate" column="regdate" />
+	</resultMap>
+
+	<sql id="select-all">
+		SELECT * FROM SBoard_0516
+	</sql>
+
+	<sql id="where-no">
+		WHERE no =#no#
+	</sql>
+
+	<!-- select 쿼리문 정의 -->
+	<select id="selectAll" resultMap="boardRes">
+		<include refid="select-all" />
+		ORDER BY no DESC
+	</select>
+
+	<select id="selectOne" resultMap="boardRes" parameterClass="int">
+		<include refid="select-all" />
+		<include refid="where-no" />
+	</select>
+
+	<select id="selectLastNo" resultClass="board">
+		SELECT max(no) as no FROM SBOARD
+	</select>
+
+	<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+		<include refid="select-all" />
+		<include refid="where-no" />
+		AND password = #password#
+	</select>
+
+
+	<!-- insert 쿼리문 정의 -->
+	<insert id="insertBoard" parameterClass="board">
+
+		INSERT INTO SBOARD (NO,
+		SUBJECT,
+		NAME,
+		PASSWORD,
+		CONTENT,
+		REGDATE
+		)
+		VALUES (SBOARD_NO_SEQ.NEXTVAL,
+		#subject#,
+		#name#,
+		#password#,
+		#content#,
+		#regdate#
+		)
+	</insert>
+
+
+	<!-- update 쿼리문 정의 -->
+	<update id="updateBoard" parameterClass="board">
+		UPDATE SBOARD SET SUBJECT = #subject#,
+		NAME = #name#,
+		PASSWORD = #password#,
+		CONTENT = #content#
+		<include refid="where-no" />
+	</update>
+
+	<update id="updateFile" parameterClass="board">
+		UPDATE SBOARD SET FILE_ORGNAME = #file_orgname#
+		,FILE_SAVNAME = #file_savname#
+		<include refid="where-no" />
+	</update>
+
+	<update id="updateReadHit" parameterClass="board">
+		UPDATE SBOARD SET READHIT = readHit + 1
+		<include refid="where-no" />
+	</update>
+
+
+	<!-- delete 쿼리문 정의 -->
+	<delete id="deleteBoard" parameterClass="board">
+		DELETE FROM SBOARD
+		<include refid="where-no" />
+	</delete>
+</sqlMap>
