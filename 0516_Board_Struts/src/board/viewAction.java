@@ -24,7 +24,7 @@ public class viewAction extends ActionSupport{
 	private int no;
 	private String password;
 	
-	private String fileUploadPath = "C:\\uploads";
+	private String fileUploadPath = "C:\\upload\\";
 	
 
 
