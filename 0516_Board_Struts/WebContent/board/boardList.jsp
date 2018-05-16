@@ -7,7 +7,7 @@
 
 <head>
 <title>스트럿츠2 게시판</title>
-	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+	<link rel="stylesheet" href="/0516_Board_Struts/board/common/css/css.css" type="text/css">
 </head>
 <body>
 	<table width="600" border="0" cellspacing="0" cellpadding="2">

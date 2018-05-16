@@ -36,31 +36,31 @@ public class viewAction extends ActionSupport{
 	public viewAction() throws IOException {
 
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml �뙆�씪�쓽 �꽕�젙�궡�슜�쓣 媛��졇�삩�떎.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml�쓽 �궡�슜�쓣 �쟻�슜�븳 sqlMapper 媛앹껜 �깮�꽦.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml�쓽 �궡�슜�쓣 �쟻�슜�븳 sqlMapper 媛앹�? �깮�꽦.
 		reader.close();
 	}
 	public String execute() throws Exception {
 
-		// �빐�떦 湲��쓽 議고쉶�닔 +1.
+		// �빐�떦 湲��쓽 議고?���닔 +1.
 		paramClass.setNo(getNo());
 		sqlMapper.update("updateReadHit", paramClass);
 
-		// �빐�떦 踰덊샇�쓽 湲��쓣 媛��졇�삩�떎.
+		// �빐�떦 踰덊?���쓽 湲��쓣 媛��졇�삩�떎.
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 
 		return SUCCESS;
 	}
 
-	// 泥⑤� �뙆�씪 �떎�슫濡쒕뱶
+	// 泥⑤�? �뙆�씪 �떎�슫濡쒕�?
 	public String download() throws Exception {
 
-		// �빐�떦 踰덊샇�쓽 �뙆�씪 �젙蹂대�� 媛��졇�삩�떎// �븳以꾩쭨由� �뜲�씠�꽣
+		// �빐�떦 踰덊?���쓽 �뙆�씪 �젙蹂�?�� 媛��졇�삩�떎// �븳以꾩쭨由�? �뜲�씠�꽣
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 
-		// �뙆�씪 寃쎈줈�� �뙆�씪紐낆쓣 file 媛앹껜�뿉 �꽔�뒗�떎.
+		// �뙆�씪 寃쎈줈��? �뙆�씪紐낆?�� file 媛앹껜��? �꽔�뒗�떎.
 		File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());
 
-		// �떎�슫濡쒕뱶 �뙆�씪 �젙蹂� �꽕�젙.
+		// �떎�슫濡쒕�? �뙆�씪 �젙蹂� �꽕�젙.
 		setContentLength(fileInfo.length());
 		setContentDisposition("attachment;filename="
 				+ URLEncoder.encode(resultClass.getFile_orgname(), "UTF-8"));
@@ -70,24 +70,24 @@ public class viewAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	// 鍮꾨�踰덊샇 泥댄겕 �뤌
+	// ?��꾨�踰덊?�� 泥댄�? �뤌
 	public String checkForm() throws Exception {
 
 		return SUCCESS;
 	}
 
-	// 鍮꾨�踰덊샇 泥댄겕 �븸�뀡
+	// ?��꾨�踰덊?�� 泥댄�? �븸��??
 	public String checkAction() throws Exception {
 
-		// 鍮꾨�踰덊샇 �엯�젰媛� �뙆�씪誘명꽣 �꽕�젙.
+		// ?��꾨�踰덊?�� �엯�젰媛� �뙆�씪誘명�? �꽕�젙.
 		paramClass.setNo(getNo());
 		paramClass.setPassword(getPassword());
 
-		// �쁽�옱 湲��쓽 鍮꾨�踰덊샇 媛��졇�삤湲�.
+		// �쁽�옱 湲��쓽 ?��꾨�踰덊?�� 媛��졇�삤湲�.
 		resultClass = (boardVO) sqlMapper.queryForObject("selectPassword",
 				paramClass);
 
-		// �엯�젰�븳 鍮꾨�踰덊샇媛� ��由щ㈃ ERROR 由ы꽩.
+		// �엯�젰�븳 ?��꾨�踰덊?��媛� ��?��?�㈃ ERROR ?��?�꽩.
 		if (resultClass == null)
 			return ERROR;
 

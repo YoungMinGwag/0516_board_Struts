@@ -4,11 +4,12 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="file----------------------" extends="struts-default">
+	<package name="board" extends="struts-default">
+
+		<!-- 게시판 상세보기 액션. -->
 		<action name="viewAction" class="board.viewAction">
 			<result>/board/boardView.jsp</result>
 		</action>
-
 
 		<!-- 파일 다운로드 액션 -->
 		<action name="fileDownloadAction" class="board.viewAction"
@@ -28,13 +29,9 @@
 			<result>/board/checkSuccess.jsp</result>
 
 		</action>
-	</package>
 
 
-	<!-- 용량제한 100MB 로 설정. -->
-	<constant name="struts.multipart.maxSize" value="104857600" />
 
-	<package name="list------------------------------" extends="struts-default">
 		<!-- <global-results> -->
 		<!-- <result name="error">/board/pageError.jsp</result> -->
 		<!-- </global-results> -->
@@ -45,9 +42,9 @@
 		<action name="listAction" class="board.listAction">
 			<result>/board/boardList.jsp</result>
 		</action>
-	</package>
 
-	<package name="wirte---------------------------" extends="struts-default">
+
+
 		<!-- 게시판 쓰기 액션. -->
 		<action name="writeForm" class="board.writeAction" method="form">
 			<result>/board/boardWrite.jsp</result>
