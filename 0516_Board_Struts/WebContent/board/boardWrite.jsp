@@ -10,7 +10,7 @@
 <SCRIPT type="text/javascript">
 		function validation() {
 		
-			var frm = document.forms(0);
+			var frm = document.forms[0];
 			
 			if(frm.subject.value == "") {
 				alert("제목을 입력해주세요.");

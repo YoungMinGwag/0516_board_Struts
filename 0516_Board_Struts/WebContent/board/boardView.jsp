@@ -7,8 +7,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>½ºÆ®·µÃ÷2 °Ô½ÃÆÇ</title>
-<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css"
-	type="text/css">
+<link rel="stylesheet"
+	href="/0516_Board_Struts/board/common/css/css.css" type="text/css">
 	<script type="text/javascript">
 		function open_win_noresizable(url, name) {
 			var oWin = window
