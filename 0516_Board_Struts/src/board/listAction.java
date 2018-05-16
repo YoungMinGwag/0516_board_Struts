@@ -1,6 +1,9 @@
 package board;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import board.pagingAction;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient; 
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -8,8 +11,6 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.util.*;
 import java.io.Reader;
 import java.io.IOException;
-
-import board.pagingAction;
 
 public class listAction extends ActionSupport {
 	
