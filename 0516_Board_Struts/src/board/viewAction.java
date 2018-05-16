@@ -24,7 +24,7 @@ public class viewAction extends ActionSupport{
 	private int no;
 	private String password;
 	
-	private String fileUploadPath = "C:\\Users\\호준\\Desktop\\uploads";
+	private String fileUploadPath = "C:\\uploads";
 	
 
 
@@ -32,35 +32,35 @@ public class viewAction extends ActionSupport{
 	private String contentDisposition;
 	private long contentLength;
 
-	// 생성자
+	// �깮�꽦�옄
 	public viewAction() throws IOException {
 
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml �뙆�씪�쓽 �꽕�젙�궡�슜�쓣 媛��졇�삩�떎.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml�쓽 �궡�슜�쓣 �쟻�슜�븳 sqlMapper 媛앹껜 �깮�꽦.
 		reader.close();
 	}
 	public String execute() throws Exception {
 
-		// 해당 글의 조회수 +1.
+		// �빐�떦 湲��쓽 議고쉶�닔 +1.
 		paramClass.setNo(getNo());
 		sqlMapper.update("updateReadHit", paramClass);
 
-		// 해당 번호의 글을 가져온다.
+		// �빐�떦 踰덊샇�쓽 湲��쓣 媛��졇�삩�떎.
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 
 		return SUCCESS;
 	}
 
-	// 첨부 파일 다운로드
+	// 泥⑤� �뙆�씪 �떎�슫濡쒕뱶
 	public String download() throws Exception {
 
-		// 해당 번호의 파일 정보를 가져온다// 한줄짜리 데이터
+		// �빐�떦 踰덊샇�쓽 �뙆�씪 �젙蹂대�� 媛��졇�삩�떎// �븳以꾩쭨由� �뜲�씠�꽣
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 
-		// 파일 경로와 파일명을 file 객체에 넣는다.
+		// �뙆�씪 寃쎈줈�� �뙆�씪紐낆쓣 file 媛앹껜�뿉 �꽔�뒗�떎.
 		File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());
 
-		// 다운로드 파일 정보 설정.
+		// �떎�슫濡쒕뱶 �뙆�씪 �젙蹂� �꽕�젙.
 		setContentLength(fileInfo.length());
 		setContentDisposition("attachment;filename="
 				+ URLEncoder.encode(resultClass.getFile_orgname(), "UTF-8"));
@@ -70,24 +70,24 @@ public class viewAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	// 비밀번호 체크 폼
+	// 鍮꾨�踰덊샇 泥댄겕 �뤌
 	public String checkForm() throws Exception {
 
 		return SUCCESS;
 	}
 
-	// 비밀번호 체크 액션
+	// 鍮꾨�踰덊샇 泥댄겕 �븸�뀡
 	public String checkAction() throws Exception {
 
-		// 비밀번호 입력값 파라미터 설정.
+		// 鍮꾨�踰덊샇 �엯�젰媛� �뙆�씪誘명꽣 �꽕�젙.
 		paramClass.setNo(getNo());
 		paramClass.setPassword(getPassword());
 
-		// 현재 글의 비밀번호 가져오기.
+		// �쁽�옱 湲��쓽 鍮꾨�踰덊샇 媛��졇�삤湲�.
 		resultClass = (boardVO) sqlMapper.queryForObject("selectPassword",
 				paramClass);
 
-		// 입력한 비밀번호가 틀리면 ERROR 리턴.
+		// �엯�젰�븳 鍮꾨�踰덊샇媛� ��由щ㈃ ERROR 由ы꽩.
 		if (resultClass == null)
 			return ERROR;
 
